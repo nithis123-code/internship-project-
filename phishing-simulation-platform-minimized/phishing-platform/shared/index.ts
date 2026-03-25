@@ -1,0 +1,35 @@
+/**
+ * Base HTTP error class with status code.
+ * Throw this from route handlers to send specific HTTP errors.
+ */
+export class HttpError extends Error {
+  constructor(
+    public statusCode: number,
+    message: string
+  ) {
+    super(message);
+    this.name = "HttpError";
+  }
+}
+
+// Convenience constructors
+export const BadRequestError = (msg: string) => new HttpError(400, msg);
+export const UnauthorizedError = (msg: string) => new HttpError(401, msg);
+export const ForbiddenError = (msg: string) => new HttpError(403, msg);
+export const NotFoundError = (msg: string) => new HttpError(404, msg);
+
+// ---- const ----
+export const COOKIE_NAME = "app_session_id";
+export const ONE_YEAR_MS = 1000 * 60 * 60 * 24 * 365;
+export const AXIOS_TIMEOUT_MS = 30_000;
+export const UNAUTHED_ERR_MSG = 'Please login (10001)';
+export const NOT_ADMIN_ERR_MSG = 'You do not have required permission (10002)';
+
+// ---- types ----
+/**
+ * Unified type exports
+ * Import shared types from this single entry point.
+ */
+
+export type * from "../drizzle/schema";
+export * from "./_core/errors";
